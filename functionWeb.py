@@ -13,7 +13,7 @@ html_parse = html.fromstring(html_bytes_array)
 # for link in html_parse.xpath("//a"):
 #     print ("Name", link.text, "URL", link.get("href"))
 
-
+# https://medium.com/@epicshane/using-beautifulsoup4-to-find-class-exact-match-3e263a95e330
 # #Feeding the content
 # soup = bs4(html_parse, 'html.parser')
 # print(soup.prettify())
