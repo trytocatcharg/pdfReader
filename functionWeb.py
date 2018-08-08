@@ -18,14 +18,14 @@ html_parse = html.fromstring(html_bytes_array)
 # soup = bs4(html_parse, 'html.parser')
 # print(soup.prettify())
 
-# with urlopen(url) as html_txt:
-#     soup = BeautifulSoup(html_txt, 'lxml')
-# tag = soup.find(lambda tag: tag.name == 'div' and tag['class'] == ['euroDolar'])
+with urlopen(url) as html_txt:
+    soup = BeautifulSoup(html_txt, 'lxml')
+tag = soup.find(lambda tag: tag.name == 'dd' and tag['class'] == ['euroDolar'])
 
 
-test="<div class='price'> first </div><div class='value'> second </div><div class='value price '>third </div>"
-soup = BeautifulSoup(test, 'lxml')
-tag = soup.find(lambda tag: tag.name == 'div' and tag['class'] == ['price'])
+# test="<div class='price'> first </div><div class='value'> second </div><div class='value price '>third </div>"
+# soup = BeautifulSoup(test, 'lxml')
+# tag = soup.find(lambda tag: tag.name == 'div' and tag['class'] == ['price'])
 
 
 print(tag)
