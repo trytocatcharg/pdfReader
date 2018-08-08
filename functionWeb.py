@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 url="https://www.bde.es/bde/es/"
 
+
 #Opening bde site using urllib
 html_page = html_page = urlopen(url)
 html_bytes_array=html_page.read()
