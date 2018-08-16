@@ -20,9 +20,9 @@ date_yesterday = element[0].select("tr")[2].select("td")[0].text
 
 
 if risk_today < risk_yesterday:
-    str_value = "{0}{1}{2} y el de ayer {3}".format(Fore.RED,risk_today,Fore.RESET,risk_yesterday)
-else:
     str_value = "{0}{1}{2} y el de ayer {3}".format(Fore.GREEN,risk_today,Fore.RESET,risk_yesterday)
+else:
+    str_value = "{0}{1}{2} y el de ayer {3}".format(Fore.RED,risk_today,Fore.RESET,risk_yesterday)
 
 
 if int(risk_today) > 1000:
