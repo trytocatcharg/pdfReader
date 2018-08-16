@@ -8,8 +8,8 @@ from mongoDB import *
 
 now =  datetime.datetime.now()
 # yyy--mm--dd HH:MM
-nowStr=(str(now)).split(' ')[0 ]+ ' {0}'.format(now.strftime("%H:%M"))
-url="https://www.degussa-mp.es/precios"
+nowStr = (str(now)).split(' ')[0 ]+ ' {0}'.format(now.strftime("%H:%M"))
+url = "https://www.degussa-mp.es/precios"
 
 with urlopen(url) as html_txt:
     soup = BeautifulSoup(html_txt, 'lxml')
