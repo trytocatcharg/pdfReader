@@ -5,8 +5,8 @@ from colorama import init, Fore, Back, Style
 
 init()
 
-arg='2'
-url = 'http://www.ambito.com/economia/mercados/riesgo-pais/info/?id={0}'.format(arg)
+contry_id='2'
+url = 'http://www.ambito.com/economia/mercados/riesgo-pais/info/?id={0}'.format(contry_id)
 
 with urlopen(url) as html_txt:
     soup = BeautifulSoup(html_txt, 'lxml')
@@ -24,6 +24,8 @@ if risk_today < risk_yesterday:
 else:
     str_value = "{0}{1}{2} y el de ayer {3}".format(Fore.RED,risk_today,Fore.RESET,risk_yesterday)
 
+country = soup.select("#pais")
+print(country[0].text)
 
 if int(risk_today) > 1000:
     print("Esto tiene olor a 2001...{0}".format(str_value))
