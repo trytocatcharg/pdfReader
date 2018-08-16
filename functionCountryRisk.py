@@ -1,7 +1,7 @@
 from urllib.request import urlopen
 from lxml import html
 from bs4 import BeautifulSoup
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore
 
 init()
 
