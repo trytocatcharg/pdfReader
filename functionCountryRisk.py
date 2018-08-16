@@ -5,15 +5,21 @@ from colorama import init, Fore, Back, Style
 
 init()
 
-contry_id='2'
+# # venezuela
+# contry_id='20' 
+# # basil
+# contry_id='3' 
+
+# argentina
+contry_id='2' 
 url = 'http://www.ambito.com/economia/mercados/riesgo-pais/info/?id={0}'.format(contry_id)
 
 with urlopen(url) as html_txt:
     soup = BeautifulSoup(html_txt, 'lxml')
 
 element = soup.select("table > tr")
-risk_today = int(element[0].select("tr")[1].select("td")[1].text)
-risk_yesterday = int(element[0].select("tr")[2].select("td")[1].text)
+risk_today = int(element[0].select("tr")[1].select("td")[1].text.replace(".",""))
+risk_yesterday = int(element[0].select("tr")[2].select("td")[1].text.replace(".",""))
 
 date_today = element[0].select("tr")[1].select("td")[0].text
 date_yesterday = element[0].select("tr")[2].select("td")[0].text
