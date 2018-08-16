@@ -48,4 +48,3 @@ db_store = {'name':name_gold, 'value':value_gold, 'time':nowStr, 'type_id':'2.5G
 
 # Inserto barra de 2.5 gr
 save_data(db_store)
-# Inserto barra de 2.5 gr
