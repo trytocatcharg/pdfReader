@@ -20,4 +20,4 @@ while 1==1:
     print(Fore.GREEN + dolar_sell + Fore.RESET)
     print("Variación " + table_element[0].select(".update")[0].text)
     print(table_element[0].select(".update")[1].text)
-    time.sleep(5)
+    time.sleep(60)
