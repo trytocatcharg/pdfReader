@@ -14,6 +14,8 @@ url_image_search = 'C:\AQLITE_LAST\search.png'
 # Windows
 chrome_path = 'C:/Users/MENSASDD/AppData/Local/Google/Chrome/Application/chrome.exe %s'
 
+# http://api.stackexchange.com/docs/questions#order=desc&sort=creation&tagged=python%3Bjavascript%3Bangular&filter=default&site=stackoverflow&run=true
+
 # Linux
 # chrome_path = '/usr/bin/chromium-browser %s'
 
@@ -42,25 +44,27 @@ def execute_action(sec_wait):
     sleep(sec_wait)
     retry = 10
     count_retry = 1
-    v = None
-    while v is None:
-        v = pyautogui.locateOnScreen(url_image_search,grayscale=True) ##save the extension as image
-        count_retry = count_retry + 1
-        if count_retry == retry:
-                print ('retry complete')
-                break
+#     v = None
+#     while v is None:
+#         v = pyautogui.locateOnScreen(url_image_search,grayscale=True) ##save the extension as image
+#         count_retry = count_retry + 1
+#         if count_retry == retry:
+#                 print ('retry complete')
+#                 break
     
-    if count_retry == retry:
-            return
+#     if count_retry == retry:
+#             return
 
     # #trigger click event using the pyutogui click method
     sleep(sec_wait)
-    pyautogui.click(x=v[0],y=v[1],clicks=1,interval=0.0,button="left")
+    # pyautogui.click(x=v[0],y=v[1],clicks=1,interval=0.0,button="left")
 
-    sleep(sec_wait)
+    # sleep(sec_wait)
     rnd_type_interval = random.randrange(1, 5, 2)
     pyautogui.typewrite('Hello world!', interval=rnd_type_interval)
-
+    
+    sleep(1)
+    pyautogui.press('enter')
 
 for i in range(count_total_second):
     if i in list:
