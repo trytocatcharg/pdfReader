@@ -55,8 +55,15 @@ table_element = soup.findAll("div", {"class": "to-fixed"})
 
 print(nowStr)
 
-def is_not_blank(s):
-    return bool(s and s.strip())
+def format_value(s):
+    if "NAN%" in s:
+        return 0
+    if "INF%" in s:
+        return 0
+    if bool(s and s.strip()):
+        return s
+    else:
+        return 0
 
 def convert_to_number(value):
     if isinstance(value, int):
@@ -82,10 +89,7 @@ for f in reversed(table_element[0].select("th")):
 i = 0
 filter_list = []
 for f in table_element[0].select("tr")[1]:
-    if is_not_blank(f.text):
-        filter_list.append(f.text)
-    else:
-        filter_list.append(0)
+    filter_list.append(format_value(f.text))
 
 del filter_list[0] # borro el texto
 columName = columns[i] + str(INGRESOS_ROW)
@@ -100,17 +104,14 @@ for f in reversed(filter_list):
 i = 0
 filter_list = []
 for f in table_element[0].select("tr")[3]:
-    if is_not_blank(f.text):
-        filter_list.append(f.text)
-    else:
-        filter_list.append(0)
+    filter_list.append(format_value(f.text))
 
 del filter_list[0] # borro el texto
 columName = columns[i] + str(COSTES_DE_VENTA_ROW)
 worksheet.write(columName, 'Costes de venta')
 for f in reversed(filter_list):
     columName = columns[i + 1] + str(COSTES_DE_VENTA_ROW)
-    worksheet.write(columName, f) 
+    worksheet.write(columName, convert_to_number(f))
     i += 1
 # Coste de ventas
 
@@ -118,17 +119,14 @@ for f in reversed(filter_list):
 i = 0
 filter_list = []
 for f in table_element[0].select("tr")[5]:
-    if is_not_blank(f.text):
-        filter_list.append(f.text)
-    else:
-        filter_list.append(0)
+    filter_list.append(format_value(f.text))
 
 del filter_list[0] # borro el texto
 columName = columns[i] + str(MARGEN_BRUTO_ROW)
 worksheet.write(columName, 'Margen btuto')
 for f in reversed(filter_list):
     columName = columns[i + 1] + str(MARGEN_BRUTO_ROW)
-    worksheet.write(columName, f) 
+    worksheet.write(columName, convert_to_number(f))
     i += 1
 # Margen bruto
 
@@ -136,10 +134,7 @@ for f in reversed(filter_list):
 i = 0
 filter_list = []
 for f in table_element[0].select("tr")[6]:
-    if is_not_blank(f.text):
-        filter_list.append(f.text)
-    else:
-        filter_list.append(0)
+    filter_list.append(format_value(f.text))
 
 del filter_list[0] # borro el texto
 columName = columns[i] + str(MARGEN_BRUTO_PORCENTAJE_ROW)
@@ -150,27 +145,66 @@ for f in reversed(filter_list):
     i += 1
 # Margen bruto %
 
-# Margen bruto %
+# EBITDA
 i = 0
 filter_list = []
 for f in table_element[0].select("tr")[7]:
-    if is_not_blank(f.text):
-        filter_list.append(f.text)
-    else:
-        filter_list.append(0)
+    filter_list.append(format_value(f.text))
 
 del filter_list[0] # borro el texto
 columName = columns[i] + str(EBITDA_ROW)
 worksheet.write(columName, 'EBITDA')
 for f in reversed(filter_list):
     columName = columns[i + 1] + str(EBITDA_ROW)
+    worksheet.write(columName, convert_to_number(f)) 
+    i += 1
+# EBITDA
+
+# EBITDA %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[8]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(EBITDA_PORCENTAJE_ROW)
+worksheet.write(columName, 'EBITDA %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(EBITDA_PORCENTAJE_ROW)
     worksheet.write(columName, f) 
     i += 1
-# Margen bruto %
+# EBITDA %
+
+# Margen ebitda/ventas
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[9]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(MARGEN_EBITDA_OVER_VENTAS_ROW)
+worksheet.write(columName, 'Margen EBITDA/Ventas')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(MARGEN_EBITDA_OVER_VENTAS_ROW)
+    worksheet.write(columName, f)
+    i += 1
+# Margen ebitda/ventas
+
+# EBIT
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[10]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(EBIT_ROW)
+worksheet.write(columName, 'EBIT')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(EBIT_ROW)
+    worksheet.write(columName, convert_to_number(f))
+    i += 1
+# EBIT
 
 
 
 workbook.close() 
-
-
-
