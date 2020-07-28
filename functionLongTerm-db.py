@@ -205,6 +205,131 @@ for f in reversed(filter_list):
     i += 1
 # EBIT
 
+# Margen EBIT/Ventas
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[12]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(MARGEN_EBIT_OVER_VENTAS_ROW)
+worksheet.write(columName, 'Margent EBIT / Ventas')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(MARGEN_EBIT_OVER_VENTAS_ROW)
+    worksheet.write(columName, f) 
+    i += 1
+# Margen EBIT/Ventas
+
+# Resultado neto ordinario
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[13]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(RESULTADO_NETO_ORDINARIO_ROW)
+worksheet.write(columName, 'Resultado neto ordinario')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(RESULTADO_NETO_ORDINARIO_ROW)
+    worksheet.write(columName, convert_to_number(f))
+    i += 1
+# Resultado neto ordinario
+
+# Resultado neto total
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[14]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(RESULTADO_NETO_TOTAL_ROW)
+worksheet.write(columName, 'Resultado neto total')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(RESULTADO_NETO_TOTAL_ROW)
+    worksheet.write(columName, convert_to_number(f))
+    i += 1
+# Resultado neto total
+
+
+# BPA ordinario
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[15]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(BPA_ROW)
+worksheet.write(columName, 'BPA ordinario')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(BPA_ROW)
+    worksheet.write(columName, convert_to_number(f))
+    i += 1
+# BPA ordinario
+
+# BPA %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[16]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(BPA_PORCENTAJE_ROW)
+worksheet.write(columName, 'BPA %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(BPA_PORCENTAJE_ROW)
+    worksheet.write(columName, f) 
+    i += 1
+# BPA %
+
+
+# Dividendo ordinario
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[19]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(DIVIDENDO_ORDINARIO_ROW)
+worksheet.write(columName, 'Dividendo ordinario')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(DIVIDENDO_ORDINARIO_ROW)
+    worksheet.write(columName, convert_to_number(f))
+    i += 1
+# Dividendo ordinario
+
+# Dividendo %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[20]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(DIVIDENDO_ORDINARIO_PORCENTAJE_ROW)
+worksheet.write(columName, 'Dividendo %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(DIVIDENDO_ORDINARIO_PORCENTAJE_ROW)
+    worksheet.write(columName, f) 
+    i += 1
+# Dividendo %
+
+# Dividendo %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[21]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(PAYOUT_ROW)
+worksheet.write(columName, 'Payout %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(PAYOUT_ROW)
+    worksheet.write(columName, f) 
+    i += 1
+# Dividendo %
+
 
 
 workbook.close() 
+
+
+
