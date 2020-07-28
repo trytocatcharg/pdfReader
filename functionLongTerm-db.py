@@ -22,27 +22,24 @@ MARGEN_EBIT_OVER_VENTAS_ROW = 10
 RESULTADO_NETO_ORDINARIO_ROW = 11
 RESULTADO_NETO_TOTAL_ROW = 12
 BPA_ROW = 13
-BPA_PORCENTAJE_ROW = 14
-DIVIDENDO_ORDINARIO_ROW = 15
-DIVIDENDO_ORDINARIO_PORCENTAJE_ROW = 16
-PAYOUT_ROW = 17
-DIVIDENDO_TOTAL_ROW = 18
-VALOR_CONTABLE_ACCION_ROW = 19
-DEUDA_NETA_ROW = 20
-DEUDA_NETA_PORCENTAJE_ROW = 21
-DEUDA_NETA_OVER_CF_EXPLOTACION_ROW = 22
-ROA_ROW = 23
-ROE_ROW = 24
-ROCE_ROW = 25
-CF_EXPLOTACION_ROW = 26
-CF_EXPLOTACION_PORCENTAJE_ROW = 27
-CF_INVERSION_ROW = 28
-CF_INVERSION_PORCENTAJE_ROW = 29
-CF_FINANCIACION_ROW = 30
-CF_FINANCIACION_PORCENTAJE_ROW = 31
-VARIACION_TIPO_CAMBIO_ROW = 32
-CF_NETO_ROW = 33
-CF_NETO_PORCENTAJE_ROW = 34
+DIVIDENDO_ORDINARIO_ROW = 14
+PAYOUT_ROW = 15
+VALOR_CONTABLE_ACCION_ROW = 16
+DEUDA_NETA_ROW = 17
+DEUDA_NETA_OVER_EBITDA_ROW = 18
+DEUDA_NETA_OVER_CF_EXPLOTACION_ROW = 19
+ROA_ROW = 20
+ROE_ROW = 21
+ROCE_ROW = 22
+CF_EXPLOTACION_ROW = 23
+CF_EXPLOTACION_PORCENTAJE_ROW = 24
+CF_INVERSION_ROW = 25
+CF_INVERSION_PORCENTAJE_ROW = 26
+CF_FINANCIACION_ROW = 27
+CF_FINANCIACION_PORCENTAJE_ROW = 28
+VARIACION_TIPO_CAMBIO_ROW = 29
+CF_NETO_ROW = 30
+CF_NETO_PORCENTAJE_ROW = 31
 
 
 url = "https://www.invertirenbolsa.info/historicodividendos/empresa/{0}".format(COMPANY)
@@ -56,10 +53,12 @@ table_element = soup.findAll("div", {"class": "to-fixed"})
 print(nowStr)
 
 def format_value(s):
-    if "NAN%" in s:
+    if "NAN%" in str(s):
         return 0
-    if "INF%" in s:
+    if "INF%" in str(s):
         return 0
+    if "%" in str(s):
+        return s.replace(',', '.')
     if bool(s and s.strip()):
         return s
     else:
@@ -123,7 +122,7 @@ for f in table_element[0].select("tr")[5]:
 
 del filter_list[0] # borro el texto
 columName = columns[i] + str(MARGEN_BRUTO_ROW)
-worksheet.write(columName, 'Margen btuto')
+worksheet.write(columName, 'Margen bruto')
 for f in reversed(filter_list):
     columName = columns[i + 1] + str(MARGEN_BRUTO_ROW)
     worksheet.write(columName, convert_to_number(f))
@@ -141,7 +140,7 @@ columName = columns[i] + str(MARGEN_BRUTO_PORCENTAJE_ROW)
 worksheet.write(columName, 'Margen btuto %')
 for f in reversed(filter_list):
     columName = columns[i + 1] + str(MARGEN_BRUTO_PORCENTAJE_ROW)
-    worksheet.write(columName, f) 
+    worksheet.write(columName, f)
     i += 1
 # Margen bruto %
 
@@ -266,20 +265,20 @@ for f in reversed(filter_list):
     i += 1
 # BPA ordinario
 
-# BPA %
-i = 0
-filter_list = []
-for f in table_element[0].select("tr")[16]:
-    filter_list.append(format_value(f.text))
+# # BPA %
+# i = 0
+# filter_list = []
+# for f in table_element[0].select("tr")[16]:
+#     filter_list.append(format_value(f.text))
 
-del filter_list[0] # borro el texto
-columName = columns[i] + str(BPA_PORCENTAJE_ROW)
-worksheet.write(columName, 'BPA %')
-for f in reversed(filter_list):
-    columName = columns[i + 1] + str(BPA_PORCENTAJE_ROW)
-    worksheet.write(columName, f) 
-    i += 1
-# BPA %
+# del filter_list[0] # borro el texto
+# columName = columns[i] + str(BPA_PORCENTAJE_ROW)
+# worksheet.write(columName, 'BPA %')
+# for f in reversed(filter_list):
+#     columName = columns[i + 1] + str(BPA_PORCENTAJE_ROW)
+#     worksheet.write(columName, f) 
+#     i += 1
+# # BPA %
 
 
 # Dividendo ordinario
@@ -297,22 +296,22 @@ for f in reversed(filter_list):
     i += 1
 # Dividendo ordinario
 
-# Dividendo %
-i = 0
-filter_list = []
-for f in table_element[0].select("tr")[20]:
-    filter_list.append(format_value(f.text))
+# # Dividendo %
+# i = 0
+# filter_list = []
+# for f in table_element[0].select("tr")[20]:
+#     filter_list.append(format_value(f.text))
 
-del filter_list[0] # borro el texto
-columName = columns[i] + str(DIVIDENDO_ORDINARIO_PORCENTAJE_ROW)
-worksheet.write(columName, 'Dividendo %')
-for f in reversed(filter_list):
-    columName = columns[i + 1] + str(DIVIDENDO_ORDINARIO_PORCENTAJE_ROW)
-    worksheet.write(columName, f) 
-    i += 1
-# Dividendo %
+# del filter_list[0] # borro el texto
+# columName = columns[i] + str(DIVIDENDO_ORDINARIO_PORCENTAJE_ROW)
+# worksheet.write(columName, 'Dividendo %')
+# for f in reversed(filter_list):
+#     columName = columns[i + 1] + str(DIVIDENDO_ORDINARIO_PORCENTAJE_ROW)
+#     worksheet.write(columName, f) 
+#     i += 1
+# # Dividendo %
 
-# Dividendo %
+# Payout %
 i = 0
 filter_list = []
 for f in table_element[0].select("tr")[21]:
@@ -325,9 +324,171 @@ for f in reversed(filter_list):
     columName = columns[i + 1] + str(PAYOUT_ROW)
     worksheet.write(columName, f) 
     i += 1
-# Dividendo %
+# Payout %
+
+# Deuda neta
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[29]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(DEUDA_NETA_ROW)
+worksheet.write(columName, 'Deuda neta')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(DEUDA_NETA_ROW)
+    worksheet.write(columName, convert_to_number(f))
+    i += 1
+# Deuda neta
+
+# Deuda neta / EBITDA
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[31]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(DEUDA_NETA_OVER_EBITDA_ROW)
+worksheet.write(columName, 'Deuda neta / EBITDA')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(DEUDA_NETA_OVER_EBITDA_ROW)
+    worksheet.write(columName, convert_to_number(f) )
+    i += 1
+# Deuda neta / EBITDA
 
 
+# ROA %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[33]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(ROA_ROW)
+worksheet.write(columName, 'ROA %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(ROA_ROW)
+    worksheet.write(columName, f) 
+    i += 1
+# ROA %
+
+# ROE %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[34]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(ROE_ROW)
+worksheet.write(columName, 'ROE %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(ROE_ROW)
+    worksheet.write(columName, f) 
+    i += 1
+# ROE %
+
+# ROCE %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[35]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(ROCE_ROW)
+worksheet.write(columName, 'ROCE %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(ROCE_ROW)
+    worksheet.write(columName, f) 
+    i += 1
+# ROCE %
+
+# Cash-flow explotacion
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[37]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(CF_EXPLOTACION_ROW)
+worksheet.write(columName, 'CF explotacion')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(CF_EXPLOTACION_ROW)
+    worksheet.write(columName, convert_to_number(f) )
+    i += 1
+# Cash-flow explotacion
+
+# Cash-flow explotacion %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[38]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(CF_EXPLOTACION_PORCENTAJE_ROW)
+worksheet.write(columName, 'CF explotacion %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(CF_EXPLOTACION_PORCENTAJE_ROW)
+    worksheet.write(columName, f) 
+# Cash-flow explotacion %
+
+
+# Cash-flow inversion
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[39]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(CF_INVERSION_ROW)
+worksheet.write(columName, 'CF inversion')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(CF_INVERSION_ROW)
+    worksheet.write(columName, convert_to_number(f) )
+    i += 1
+# Cash-flow inversion
+
+# Cash-flow inversion %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[40]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(CF_INVERSION_PORCENTAJE_ROW)
+worksheet.write(columName, 'CF inversion %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(CF_INVERSION_PORCENTAJE_ROW)
+    worksheet.write(columName, f) 
+# Cash-flow inversion %
+
+# Cash-flow financiacion
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[41]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(CF_FINANCIACION_ROW)
+worksheet.write(columName, 'CF financiacion')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(CF_FINANCIACION_ROW)
+    worksheet.write(columName, convert_to_number(f) )
+    i += 1
+# Cash-flow financiacion
+
+# Cash-flow financiacion %
+i = 0
+filter_list = []
+for f in table_element[0].select("tr")[42]:
+    filter_list.append(format_value(f.text))
+
+del filter_list[0] # borro el texto
+columName = columns[i] + str(CF_FINANCIACION_PORCENTAJE_ROW)
+worksheet.write(columName, 'CF financiacion %')
+for f in reversed(filter_list):
+    columName = columns[i + 1] + str(CF_FINANCIACION_PORCENTAJE_ROW)
+    worksheet.write(columName, f) 
+# Cash-flow financiacion %
 
 workbook.close() 
 
